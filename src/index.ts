@@ -17,3 +17,4 @@ export * from './useOnClickOutside';
 export * from './usePageLeave';
 export * from './usePrevious';
 export * from './useThrottle';
+export * from './useWindowSize';

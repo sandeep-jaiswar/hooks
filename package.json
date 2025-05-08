@@ -1,5 +1,10 @@
 {
   "name": "@sandeep-jaiswar/hooks",
+  "author": {
+    "name": "sandeep jaiswar",
+    "email": "jaiswarsandeep119@gmail.com",
+    "url": "https://github.com/sandeep-jaiswar"
+  },
   "version": "0.0.4-delta",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
