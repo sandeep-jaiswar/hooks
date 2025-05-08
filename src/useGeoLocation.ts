@@ -1,14 +1,27 @@
 import { useState, useEffect } from 'react';
 
+/**
+ * @function useGeoLocation
+ * @description A custom hook that retrieves the current geographic location (latitude and longitude) of the user.
+ * It tracks the loading state and any errors that occur during the geolocation request.
+ *
+ * @returns {UseGeoLocationResponse} The hook returns the current location status, including:
+ *   - `location`: The user's geographic location with latitude and longitude (or `null` if not retrieved).
+ *   - `loading`: A boolean indicating whether the geolocation request is still in progress.
+ *   - `error`: A string representing any error message encountered during the geolocation retrieval.
+ *
+ * @example
+ * const { location, loading, error } = useGeoLocation();
+ */
 interface GeoLocation {
-  latitude: number;
-  longitude: number;
+  latitude: number; // The latitude of the current location.
+  longitude: number; // The longitude of the current location.
 }
 
 interface UseGeoLocationResponse {
-  location: GeoLocation | null;
-  loading: boolean;
-  error: string | null;
+  location: GeoLocation | null; // The current location, or null if not available.
+  loading: boolean; // Whether the geolocation request is still in progress.
+  error: string | null; // Error message or null if no error.
 }
 
 export const useGeoLocation = (): UseGeoLocationResponse => {
@@ -34,10 +47,6 @@ export const useGeoLocation = (): UseGeoLocationResponse => {
       setError('Geolocation is not supported by this browser.');
       setLoading(false);
     }
-
-    return () => {
-      // Clean up if needed, for example, to stop watching position if used
-    };
   }, []);
 
   return { location, loading, error };

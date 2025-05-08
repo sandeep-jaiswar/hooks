@@ -1,25 +1,60 @@
 import { useState, useEffect } from 'react';
 
+/**
+ * @interface UseCountDownOptions
+ * @description Options for configuring the countdown timer.
+ * @property {number} startTime - The initial countdown time in seconds.
+ * @property {() => void} [onComplete] - Optional callback invoked when the countdown reaches zero.
+ */
 interface UseCountDownOptions {
-  startTime: number; // The initial time in seconds
-  onComplete?: () => void; // Callback when the countdown completes
+  startTime: number;
+  onComplete?: () => void;
 }
 
+/**
+ * @function useCountDown
+ * @description A custom hook for managing a countdown timer.
+ *
+ * @param {UseCountDownOptions} options - Configuration for the countdown behavior.
+ * @returns {{
+ *   timeLeft: number;
+ *   isActive: boolean;
+ *   startCountdown: () => void;
+ *   pauseCountdown: () => void;
+ *   resetCountdown: () => void;
+ * }}
+ * Countdown state and control functions.
+ *
+ * @example
+ * const {
+ *   timeLeft,
+ *   isActive,
+ *   startCountdown,
+ *   pauseCountdown,
+ *   resetCountdown
+ * } = useCountDown({ startTime: 60, onComplete: () => alert('Done!') });
+ */
 export const useCountDown = ({ startTime, onComplete }: UseCountDownOptions) => {
   const [timeLeft, setTimeLeft] = useState(startTime);
   const [isActive, setIsActive] = useState(false);
 
-  // Start or reset the countdown
+  /**
+   * Starts or resumes the countdown.
+   */
   const startCountdown = () => {
     setIsActive(true);
   };
 
-  // Pause the countdown
+  /**
+   * Pauses the countdown.
+   */
   const pauseCountdown = () => {
     setIsActive(false);
   };
 
-  // Reset the countdown
+  /**
+   * Resets the countdown to the initial startTime.
+   */
   const resetCountdown = () => {
     setTimeLeft(startTime);
     setIsActive(false);
@@ -38,7 +73,7 @@ export const useCountDown = ({ startTime, onComplete }: UseCountDownOptions) => 
       });
     }, 1000);
 
-    return () => clearInterval(interval); // Cleanup on component unmount
+    return () => clearInterval(interval); // Clear interval on unmount or change
   }, [isActive, timeLeft, onComplete]);
 
   return {
