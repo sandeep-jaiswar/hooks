@@ -1,5 +1,11 @@
 # @sandeep-jaiswar/hooks
 
+## 0.0.6
+
+### Patch Changes
+
+- adc89a6: feat: refractored ci pipelines v0.0.6
+
 ## 0.0.4
 
 ### Patch Changes
