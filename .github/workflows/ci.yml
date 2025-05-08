@@ -31,47 +31,12 @@ jobs:
       - name: Build project
         run: bun run build
 
-      - name: Create version bump & changelog
+      - name: Create version bump and publish
         uses: changesets/action@v1
         with:
-          publish: false
+          version: bun run version
+          publish: bun run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Apply version bump and changelog
-        run: |
-          # Apply the version bump based on changesets
-          npx changeset version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create .npmrc file for npm publish
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish to npm
-        run: |
-          npm publish --access public
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create .npmrc file for GitHub Package Registry
-        run: |
-          echo "@sandeep-jaiswar:registry=https://npm.pkg.github.com/" > .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${GH_PUBLISH_TOKEN}" >> .npmrc
-        env:
           GH_PUBLISH_TOKEN: ${{ secrets.GH_PUBLISH_TOKEN }}
-
-      - name: Publish to GitHub Package Registry
-        run: |
-          npm publish --access public --registry=https://npm.pkg.github.com/
-        env:
-          GH_PUBLISH_TOKEN: ${{ secrets.GH_PUBLISH_TOKEN }}
-
-      - name: Release
-        run: bun run release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
