@@ -14,5 +14,6 @@ export * from './useLocalStorage';
 export * from './useMediaQuery';
 export * from './useNetworkState';
 export * from './useOnClickOutside';
+export * from './usePageLeave';
 export * from './usePrevious';
 export * from './useThrottle';
