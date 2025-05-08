@@ -34,8 +34,7 @@ jobs:
       - name: Create version bump & changelog
         uses: changesets/action@v1
         with:
-          publish: false   # Set to false to prevent automatic publishing here
-          baseBranch: main
+          publish: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -47,22 +46,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create .npmrc file for npm publish
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish to npm
         run: |
-          [ -f .npmrc ] && rm .npmrc  # Delete .npmrc only if it exists
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           npm publish --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Create .npmrc file for GitHub Package Registry
+        run: |
+          echo "@sandeep-jaiswar:registry=https://npm.pkg.github.com/" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${GH_PUBLISH_TOKEN}" >> .npmrc
+        env:
+          GH_PUBLISH_TOKEN: ${{ secrets.GH_PUBLISH_TOKEN }}
+
       - name: Publish to GitHub Package Registry
         run: |
-          [ -f .npmrc ] && rm .npmrc  # Delete .npmrc only if it exists
-          echo "@sandeep-jaiswar:registry=https://npm.pkg.github.com/" > .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc
           npm publish --access public --registry=https://npm.pkg.github.com/
         env:
-          NPM_TOKEN: ${{ secrets.GH_PUBLISH_TOKEN }}
+          GH_PUBLISH_TOKEN: ${{ secrets.GH_PUBLISH_TOKEN }}
 
       - name: Release
         run: bun run release
