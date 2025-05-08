@@ -4,7 +4,12 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -23,9 +28,11 @@
     "prepublishOnly": "bun run clean && bun run build",
     "lint": "eslint 'src/**/*.{ts,tsx}' --quiet",
     "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
-    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'",
+    "release": "changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.3",
     "@eslint/css": "^0.7.0",
     "@eslint/js": "^9.26.0",
     "@eslint/json": "^0.12.0",
