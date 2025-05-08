@@ -1,5 +1,11 @@
 # @sandeep-jaiswar/hooks
 
+## 0.0.4
+
+### Patch Changes
+
+- 0fc44fb: feat: added useWindowSize hook v0.0.5
+
 ## 0.0.3
 
 ### Patch Changes
