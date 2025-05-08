@@ -12,6 +12,7 @@ export * from './useIdle';
 export * from './useIntersectionObserver';
 export * from './useLocalStorage';
 export * from './useMediaQuery';
+export * from './useNetworkState';
 export * from './useOnClickOutside';
 export * from './usePrevious';
 export * from './useThrottle';

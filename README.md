@@ -202,8 +202,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 * This repository is maintained by [Sandeep Jaiswar](https://github.com/sandeep-jaiswar).
 * Thanks to all contributors to the React ecosystem for making these hooks possible!
-
-```
-
-Simply copy this content into your `README.md` file, and you're good to go!
-```
