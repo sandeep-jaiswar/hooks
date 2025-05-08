@@ -2,42 +2,31 @@ name: CI Workflow
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: '22.15.0'
+          bun-version: latest
 
-      # Install dependencies
       - name: Install dependencies
-        run: |
-          npm install
+        run: bun install
 
-      # Lint code with ESLint
       - name: Run ESLint
-        run: |
-          npm run lint
+        run: bun run lint
 
-
-      - name: Run TypeScript
-        run: |
-          npx tsc --noEmit
+      - name: Type-check
+        run: bunx tsc --noEmit
 
       - name: Build project
-        run: |
-          npm run build
+        run: bun run build
