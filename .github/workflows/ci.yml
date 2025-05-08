@@ -34,23 +34,30 @@ jobs:
       - name: Create version bump & changelog
         uses: changesets/action@v1
         with:
-          publish: bun run release
+          publish: false   # Set to false to prevent automatic publishing here
           baseBranch: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Apply version bump and changelog
+        run: |
+          # Apply the version bump based on changesets
+          npx changeset version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish to npm
         run: |
-          [ -f .npmrc ] && rm .npmrc
+          [ -f .npmrc ] && rm .npmrc  # Delete .npmrc only if it exists
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           npm publish --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  
+
       - name: Publish to GitHub Package Registry
         run: |
-          [ -f .npmrc ] && rm .npmrc
+          [ -f .npmrc ] && rm .npmrc  # Delete .npmrc only if it exists
           echo "@sandeep-jaiswar:registry=https://npm.pkg.github.com/" > .npmrc
           echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc
           npm publish --access public --registry=https://npm.pkg.github.com/
@@ -61,4 +68,3 @@ jobs:
         run: bun run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  

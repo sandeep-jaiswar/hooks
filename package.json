@@ -1,6 +1,6 @@
 {
   "name": "@sandeep-jaiswar/hooks",
-  "version": "0.0.4-gamma",
+  "version": "0.0.4-delta",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
