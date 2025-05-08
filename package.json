@@ -5,7 +5,7 @@
     "email": "jaiswarsandeep119@gmail.com",
     "url": "https://github.com/sandeep-jaiswar"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
