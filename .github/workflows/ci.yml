@@ -30,13 +30,3 @@ jobs:
 
       - name: Build project
         run: bun run build
-
-      - name: Create version bump and publish
-        uses: changesets/action@v1
-        with:
-          version: bun run version
-          publish: bun run release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GH_PUBLISH_TOKEN: ${{ secrets.GH_PUBLISH_TOKEN }}
