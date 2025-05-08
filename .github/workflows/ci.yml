@@ -1,0 +1,43 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.15.0'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Lint code with ESLint
+      - name: Run ESLint
+        run: |
+          npm run lint
+
+
+      - name: Run TypeScript
+        run: |
+          npx tsc --noEmit
+
+      - name: Build project
+        run: |
+          npm run build
