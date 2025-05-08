@@ -29,6 +29,7 @@
     "lint": "eslint 'src/**/*.{ts,tsx}' --quiet",
     "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'",
+    "version": "changeset version",
     "release": "changeset publish"
   },
   "devDependencies": {
